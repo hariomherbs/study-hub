@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ultra Focus & Productivity Zone - Page 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #050811; color: #ffffff; line-height: 1.6;
+            overflow-x: hidden; position: relative;
+        }
+        .glow-orb-1 {
+            position: fixed; top: -100px; left: 10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.25) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        .glow-orb-2 {
+            position: fixed; bottom: -100px; right: 10%; width: 520px; height: 520px;
+            background: radial-gradient(circle, rgba(163, 113, 247, 0.25) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 8%; background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px;
+        }
+        .logo {
+            font-size: 24px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links a {
+            color: #e6edf3; text-decoration: none; margin-left: 12px;
+            font-weight: 500; font-size: 14px; padding: 8px 14px;
+            border-radius: 20px; transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(88, 166, 255, 0.2); color: #58a6ff;
+        }
+        .container { max-width: 1180px; margin: 45px auto; padding: 0 20px; }
+        
+        .xp-banner {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 20px;
+            background: linear-gradient(135deg, rgba(31, 111, 235, 0.2), rgba(137, 87, 229, 0.25));
+            border: 1px solid rgba(188, 140, 255, 0.45);
+            border-radius: 24px; padding: 25px 35px; margin-bottom: 40px;
+            box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.5);
+        }
+        .xp-title h1 {
+            font-size: 34px; font-weight: 800;
+            background: linear-gradient(90deg, #ffffff, #79c0ff, #d2a8ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .xp-title p { color: #b1bac4; font-size: 14.5px; }
+        .xp-stats { display: flex; gap: 20px; align-items: center; }
+        .stat-pill {
+            background: rgba(6, 9, 19, 0.8); padding: 12px 22px;
+            border-radius: 16px; border: 1px solid rgba(88, 166, 255, 0.35); text-align: center;
+        }
+        .stat-pill span { display: block; font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-pill strong { font-size: 22px; color: #3fb950; }
+
+        .arena-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 28px;
+        }
+        .arena-card {
+            background: rgba(20, 25, 35, 0.8); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 30px;
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.5); transition: 0.35s ease; position: relative; overflow: hidden;
+        }
+        .arena-card:hover {
+            transform: translateY(-5px); border-color: rgba(88, 166, 255, 0.55);
+            box-shadow: 0px 18px 45px rgba(88, 166, 255, 0.18);
+        }
+        .arena-card h2 {
+            font-size: 21px; margin-bottom: 6px; color: #ffffff;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .card-sub { font-size: 13.5px; color: #8b949e; margin-bottom: 20px; }
+
+        .sound-list { display: flex; flex-direction: column; gap: 11px; }
+        .sound-btn {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 13px 18px; border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e6edf3; font-family: 'Poppins', sans-serif; font-size: 14.5px;
+            font-weight: 500; cursor: pointer; transition: 0.3s;
+        }
+        .sound-btn:hover { background: rgba(88, 166, 255, 0.15); border-color: #58a6ff; }
+        .sound-btn.playing {
+            background: linear-gradient(90deg, rgba(31, 111, 235, 0.35), rgba(137, 87, 229, 0.35));
+            border-color: #bc8cff; box-shadow: 0px 0px 20px rgba(188, 140, 255, 0.3);
+        }
+        .vol-control { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 13px; color: #8b949e; }
+        .vol-control input { flex: 1; accent-color: #58a6ff; cursor: pointer; }
+        .stop-btn {
+            margin-top: 12px; width: 100%; padding: 10px;
+            background: rgba(255, 123, 114, 0.15); border: 1px solid rgba(255, 123, 114, 0.4);
+            color: #ff7b72; border-radius: 12px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+
+        .flashcard {
+            background: rgba(6, 9, 19, 0.85); border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 18px; padding: 25px; text-align: center; cursor: pointer;
+            min-height: 140px; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; transition: 0.3s; margin-bottom: 15px;
+        }
+        .flashcard:hover { border-color: #58a6ff; transform: scale(1.01); }
+        .flashcard h3 { font-size: 17px; color: #79c0ff; margin-bottom: 8px; }
+        .flashcard p { font-size: 15px; color: #e6edf3; }
+
+        .goal-box { margin-bottom: 12px; }
+        .goal-box input {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(6, 9, 19, 0.8); color: white; font-family: 'Poppins', sans-serif; outline: none; margin-bottom: 10px;
+        }
+
+        .breath-area { text-align: center; padding: 10px 0; }
+        .breath-orb {
+            width: 135px; height: 135px; margin: 18px auto; border-radius: 50%;
+            background: radial-gradient(circle, #58a6ff, #1f6feb);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 15px; box-shadow: 0px 0px 30px rgba(88, 166, 255, 0.45);
+            transition: transform 4s ease-in-out;
+        }
+        .breath-orb.inhale { transform: scale(1.32); background: radial-gradient(circle, #bc8cff, #8957e5); }
+
+        .calc-field { margin-bottom: 12px; }
+        .calc-field label { display: block; font-size: 12.5px; color: #c9d1d9; margin-bottom: 4px; }
+        .calc-field input {
+            width: 100%; padding: 10px 14px; border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(6, 9, 19, 0.85);
+            color: white; font-family: 'Poppins', sans-serif;
+        }
+        .score-output {
+            margin-top: 12px; padding: 12px; border-radius: 12px;
+            background: rgba(46, 160, 67, 0.15); border: 1px solid rgba(63, 185, 80, 0.4);
+            text-align: center; font-size: 14px; font-weight: 600; color: #3fb950;
+        }
+
+        .oath-box {
+            background: linear-gradient(135deg, rgba(255, 123, 114, 0.12), rgba(210, 153, 34, 0.12));
+            border: 1px solid rgba(210, 153, 34, 0.4); padding: 22px; border-radius: 16px; text-align: center;
+        }
+        .oath-box p { font-size: 15px; font-style: italic; color: #e6edf3; margin-bottom: 15px; }
+
+        .action-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 14px;
+            background: linear-gradient(135deg, #1f6feb, #8957e5); color: white; font-weight: 600;
+            font-size: 14.5px; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.3s;
+        }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0px 8px 20px rgba(88, 166, 255, 0.4); }
+
+        .bottom-nav-panel { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 55px; }
+        .nav-pill {
+            padding: 16px 36px; border-radius: 50px; text-decoration: none;
+            font-weight: 600; transition: 0.3s; color: white; font-size: 15px;
+        }
+        .pill-prev { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.25); }
+        .pill-prev:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+        .pill-home { background: linear-gradient(135deg, #238636, #1f6feb); box-shadow: 0px 8px 25px rgba(35, 134, 54, 0.45); }
+        .pill-home:hover { transform: translateY(-3px); }
+
+        footer {
+            text-align: center; padding: 30px; margin-top: 70px;
+            background: rgba(9, 12, 16, 0.95); color: #8b949e; font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+
+    <nav>
+        <div class="logo">⚡ Study & Focus Hub</div>
+        <div class="nav-links">
+            <a href="index.html">1. Dashboard</a>
+            <a href="tips.html">2. Study Tips</a>
+            <a href="focus.html" class="active">3. Ultra Focus Zone 🚀</a>
+            <a href="games.html">4. In-Page Games 🎮</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="xp-banner">
+            <div class="xp-title">
+                <h1>🚀 Ultra Focus & Productivity Zone</h1>
+                <p>Focus sound chalayein, flashcards se revise karein aur apni study streak banayein!</p>
+            </div>
+            <div class="xp-stats">
+                <div class="stat-pill"><span>Study XP</span><strong id="xpDisplay">0 XP</strong></div>
+                <div class="stat-pill"><span>Streak</span><strong id="streakDisplay" style="color: #58a6ff;">🔥 1 Day</strong></div>
+            </div>
+        </div>
+
+        <div class="arena-grid">
+            <div class="arena-card">
+                <h2>🎧 Ambient Focus Sound Studio</h2>
+                <p class="card-sub">Padhai ke waqt concentration badhane ke liye calming background audio:</p>
+                <div class="sound-list">
+                    <button class="sound-btn" id="btn-rain" onclick="playSound('rain')"><span>🌧️ Soft Rain & Breeze</span><span>▶ Play</span></button>
+                    <button class="sound-btn" id="btn-brown" onclick="playSound('brown')"><span>🌊 Deep Ocean Waves</span><span>▶ Play</span></button>
+                    <button class="sound-btn" id="btn-alpha" onclick="playSound('alpha')"><span>🧠 Alpha Study Frequency</span><span>▶ Play</span></button>
+                </div>
+                <div class="vol-control"><span>🔉 Volume:</span><input type="range" id="volSlider" min="0.01" max="0.3" step="0.01" value="0.08" oninput="updateVolume()"></div>
+                <button class="stop-btn" onclick="stopSound()">⏹ Stop All Sounds</button>
+            </div>
+
+            <div class="arena-card">
+                <h2>📖 Quick Revision Flashcard</h2>
+                <p class="card-sub">Card par click karke answer dekhein aur +15 XP jeetein:</p>
+                <div class="flashcard" onclick="flipCard()">
+                    <h3 id="cardSubject">Physics Formula</h3>
+                    <p id="cardContent">"Speed = Distance / Time"</p>
+                    <span style="font-size: 11px; color: #8b949e; margin-top: 10px;">(Click to flip card 🔄)</span>
+                </div>
+                <button class="action-btn" onclick="nextCard()">⏭ Agla Flashcard Dekhein</button>
+            </div>
+
+            <div class="arena-card">
+                <h2>🎯 Aaj Ka Main Study Goal</h2>
+                <p class="card-sub">Apna aaj ka sabse bada goal likhein aur complete hone par tick karein:</p>
+                <div class="goal-box">
+                    <input type="text" id="mainGoalInput" placeholder="Jaise: Science ke 2 chapters khatam karne hain...">
+                    <button class="action-btn" onclick="saveGoal()">✔ Goal Save Karein (+20 XP)</button>
+                </div>
+                <div id="savedGoalDisplay" style="margin-top: 12px; font-size: 14px; color: #3fb950; font-weight: 500;"></div>
+            </div>
+
+            <div class="arena-card">
+                <h2>🌬️ Mind Relax Breathing Guide</h2>
+                <p class="card-sub">Exam tension ya thakan ho rahi hai? Circle ke sath 30 second deep breathing karein:</p>
+                <div class="breath-area">
+                    <div class="breath-orb" id="breathOrb">Ready</div>
+                    <button class="action-btn" id="breathBtn" onclick="toggleBreath()">🧘 Start Relax Breathing (+15 XP)</button>
+                </div>
+            </div>
+
+            <div class="arena-card">
+                <h2>📊 Daily Study Efficiency Score</h2>
+                <p class="card-sub">Apne aaj ke padhai aur phone ke ghante daal kar apna Focus Report Card dekhein:</p>
+                <div class="calc-field"><label>Aaj Kitne Ghante Padhai Ki? (Hours)</label><input type="number" id="studyHours" placeholder="Jaise: 4" min="0" max="24"></div>
+                <div class="calc-field"><label>Kitne Ghante Phone / Social Media Chalaya?</label><input type="number" id="phoneHours" placeholder="Jaise: 1" min="0" max="24"></div>
+                <button class="action-btn" style="background: linear-gradient(135deg, #238636, #2ea043);" onclick="calcFocusScore()">⚡ Calculate My Focus Score</button>
+                <div class="score-output" id="scoreOutput">Numbers bharein aur score dekhein!</div>
+            </div>
+
+            <div class="arena-card">
+                <h2>🔥 Aaj Ka Focus Sankalp (Pledge)</h2>
+                <p class="card-sub">Khud se ek vada karein aur apna daily motivation badge unlock karein:</p>
+                <div class="oath-box">
+                    <p>"Main aaj bina kisi distraction ke apne study targets poore karunga aur har roz khud ko behtar banaunga!"</p>
+                    <button class="action-btn" id="pledgeBtn" style="background: linear-gradient(135deg, #d29922, #f0883e); color: #060913;" onclick="takePledge()">🏅 Main Sankalp Leta Hoon (+25 XP)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav-panel">
+            <a class="nav-pill pill-prev" href="tips.html">&larr; Wapas Page 2 (Study Tips)</a>
+            <a class="nav-pill pill-home" href="games.html">Agla Page 4: In-Page Games 🎮 &rarr;</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 Study & Focus Hub | 3-Page Complete Interactive Student Web-App 🚀</footer>
+
+    <script>
+        let xp = parseInt(localStorage.getItem('studentXP') || "0");
+        document.getElementById('xpDisplay').innerText = xp + " XP";
+
+        function addXP(pts) {
+            xp += pts;
+            localStorage.setItem('studentXP', xp);
+            document.getElementById('xpDisplay').innerText = xp + " XP";
+        }
+
+        let audioCtx = null, activeSource = null, gainNode = null;
+        function stopSound() {
+            if (activeSource) { try { activeSource.stop(); } catch(e) {} activeSource = null; }
+            document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('playing'));
+        }
+        function updateVolume() {
+            if (gainNode) gainNode.gain.setValueAtTime(parseFloat(document.getElementById('volSlider').value), audioCtx.currentTime);
+        }
+        function playSound(type) {
+            stopSound();
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            document.getElementById(`btn-${type}`).classList.add('playing');
+            gainNode = audioCtx.createGain();
+            gainNode.gain.setValueAtTime(parseFloat(document.getElementById('volSlider').value), audioCtx.currentTime);
+            gainNode.connect(audioCtx.destination);
+
+            if (type === 'alpha') {
+                const osc = audioCtx.createOscillator();
+                osc.type = 'sine'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                osc.connect(gainNode); osc.start(); activeSource = osc;
+            } else {
+                const bufferSize = 2 * audioCtx.sampleRate;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                let lastOut = 0.0;
+                for (let i = 0; i < bufferSize; i++) {
+                    const white = Math.random() * 2 - 1;
+                    if (type === 'brown') { data[i] = (lastOut + (0.02 * white)) / 1.02; lastOut = data[i]; data[i] *= 2.5; }
+                    else { data[i] = white * 0.4; }
+                }
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = buffer; noise.loop = true;
+                noise.connect(gainNode); noise.start(0); activeSource = noise;
+            }
+        }
+
+        const flashcardsData = [
+            { sub: "Physics Formula", q: "Speed = Distance / Time", a: "Unit: m/s" },
+            { sub: "Chemistry Fact", q: "Water Chemical Formula?", a: "H2O" },
+            { sub: "Maths Theorem", q: "Area of Circle?", a: "π × r²" },
+            { sub: "Biology Fact", q: "Powerhouse of the Cell?", a: "Mitochondria" }
+        ];
+        let cardIdx = 0, showAns = false;
+        function flipCard() {
+            showAns = !showAns;
+            const c = flashcardsData[cardIdx];
+            document.getElementById('cardSubject').innerText = c.sub + (showAns ? " (Answer)" : " (Question)");
+            document.getElementById('cardContent').innerText = showAns ? c.a : c.q;
+            if (showAns) addXP(5);
+        }
+        function nextCard() {
+            cardIdx = (cardIdx + 1) % flashcardsData.length;
+            showAns = false;
+            const c = flashcardsData[cardIdx];
+            document.getElementById('cardSubject').innerText = c.sub + " (Question)";
+            document.getElementById('cardContent').innerText = c.q;
+        }
+
+        function saveGoal() {
+            const g = document.getElementById('mainGoalInput').value.trim();
+            if (!g) return;
+            localStorage.setItem('todayMainGoal', g);
+            addXP(20);
+            document.getElementById('savedGoalDisplay').innerText = "✔ Saved Goal: " + g;
+            document.getElementById('mainGoalInput').value = "";
+        }
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('todayMainGoal');
+            if (saved) document.getElementById('savedGoalDisplay').innerText = "✔ Saved Goal: " + saved;
+        });
+
+        let breathTimer = null;
+        function toggleBreath() {
+            const orb = document.getElementById('breathOrb'), btn = document.getElementById('breathBtn');
+            if (breathTimer) { clearInterval(breathTimer); breathTimer = null; orb.classList.remove('inhale'); orb.innerText = "Ready"; btn.innerText = "🧘 Start Relax Breathing (+15 XP)"; return; }
+            addXP(15); btn.innerText = "⏹ Stop Relax Mode";
+            let inhale = true; orb.classList.add('inhale'); orb.innerText = "Saans Lein...";
+            breathTimer = setInterval(() => {
+                inhale = !inhale; orb.classList.toggle('inhale', inhale);
+                orb.innerText = inhale ? "Saans Lein..." : "Saans Chhodein...";
+            }, 4000);
+        }
+
+        function calcFocusScore() {
+            const s = parseFloat(document.getElementById('studyHours').value) || 0;
+            const p = parseFloat(document.getElementById('phoneHours').value) || 0;
+            const out = document.getElementById('scoreOutput');
+            if (s === 0 && p === 0) { out.innerText = "⚠️ Pehle hours bharein!"; return; }
+            const score = Math.min(100, Math.max(10, Math.round((s * 20) - (p * 10) + 20)));
+            out.innerText = `Score: ${score}/100 — ${score >= 80 ? "🏆 Champion Level!" : score >= 50 ? "👍 Achha Focus!" : "⚡ Phone Kam Karein!"}`;
+        }
+
+        function takePledge() {
+            const btn = document.getElementById('pledgeBtn');
+            if (btn.disabled) return;
+            addXP(25);
+            btn.innerText = "✔ Sankalp Liya Gaya (+25 XP Unlocked!)";
+            btn.style.background = "#238636"; btn.style.color = "#ffffff"; btn.disabled = true;
+        }
+    </script>
+</body>
+</html>
