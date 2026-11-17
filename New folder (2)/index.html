@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study & Focus Hub - Smart Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #060913; color: #ffffff; line-height: 1.6;
+            overflow-x: hidden; position: relative;
+        }
+        .glow-1 {
+            position: fixed; top: -100px; left: -100px; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        .glow-2 {
+            position: fixed; bottom: -100px; right: -100px; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(163, 113, 247, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 8%; background: rgba(13, 17, 23, 0.75);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px;
+        }
+        .logo {
+            font-size: 24px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links a {
+            color: #e6edf3; text-decoration: none; margin-left: 12px;
+            font-weight: 500; font-size: 14px; padding: 8px 14px;
+            border-radius: 20px; transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(88, 166, 255, 0.18); color: #58a6ff;
+        }
+        .hero { text-align: center; padding: 80px 20px 50px 20px; }
+        .badge {
+            display: inline-block; padding: 6px 18px;
+            background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.4);
+            border-radius: 30px; color: #79c0ff; font-size: 13px; font-weight: 600; margin-bottom: 18px;
+        }
+        .hero h1 {
+            font-size: 50px; font-weight: 800; margin-bottom: 15px; line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff 30%, #79c0ff 70%, #d2a8ff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 17px; color: #9ea7b3; max-width: 650px; margin: 0 auto 30px auto; }
+        .main-btn {
+            display: inline-block; padding: 15px 38px;
+            background: linear-gradient(135deg, #1f6feb 0%, #8957e5 100%);
+            color: white; text-decoration: none; font-weight: 600;
+            border-radius: 50px; box-shadow: 0px 10px 30px rgba(88, 166, 255, 0.4); transition: 0.3s;
+        }
+        .main-btn:hover { transform: translateY(-3px); box-shadow: 0px 15px 40px rgba(137, 87, 229, 0.6); }
+        .tools-grid {
+            max-width: 1100px; margin: 30px auto 60px auto; padding: 0 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px;
+        }
+        .tool-card {
+            background: rgba(22, 27, 34, 0.75); backdrop-filter: blur(12px);
+            padding: 32px; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.4);
+        }
+        .tool-card h2 { font-size: 22px; margin-bottom: 10px; color: #58a6ff; }
+        .timer-display {
+            font-size: 56px; font-weight: 800; text-align: center; margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+            background: linear-gradient(90deg, #ffffff, #79c0ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .timer-btns { display: flex; justify-content: center; gap: 12px; }
+        .t-btn {
+            padding: 10px 22px; border: none; border-radius: 25px;
+            font-family: 'Poppins', sans-serif; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 14px;
+        }
+        .start-btn { background: #238636; color: white; }
+        .pause-btn { background: #d29922; color: #060913; }
+        .reset-btn { background: rgba(255,255,255,0.1); color: white; }
+        .todo-input-box { display: flex; gap: 10px; margin: 18px 0; }
+        .todo-input-box input {
+            flex: 1; padding: 12px 16px; border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(6, 9, 19, 0.8);
+            color: white; font-family: 'Poppins', sans-serif; outline: none;
+        }
+        .add-btn {
+            padding: 12px 20px; background: #1f6feb; color: white; border: none;
+            border-radius: 12px; font-weight: 600; cursor: pointer;
+        }
+        .todo-list { list-style: none; max-height: 180px; overflow-y: auto; }
+        .todo-list li {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px; background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px; margin-bottom: 8px; font-size: 14px;
+        }
+        .todo-list li span { cursor: pointer; flex: 1; }
+        .todo-list li.done span { text-decoration: line-through; opacity: 0.5; }
+        .del-btn { background: transparent; border: none; color: #ff7b72; cursor: pointer; font-weight: bold; font-size: 16px; margin-left: 10px; }
+        .quote-booster {
+            max-width: 900px; margin: 40px auto; padding: 35px;
+            background: linear-gradient(135deg, rgba(31, 111, 235, 0.15), rgba(137, 87, 229, 0.15));
+            border: 1px solid rgba(137, 87, 229, 0.4); border-radius: 24px; text-align: center;
+        }
+        .quote-booster h3 { font-size: 21px; margin: 15px 0; color: #ffffff; min-height: 60px; }
+        .boost-btn {
+            padding: 10px 26px; background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25); color: white;
+            border-radius: 25px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; transition: 0.3s;
+        }
+        .boost-btn:hover { background: #8957e5; border-color: #8957e5; }
+        .pillars { max-width: 1100px; margin: 60px auto; padding: 0 20px; text-align: center; }
+        .pillars-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 35px; }
+        .pillar-card {
+            background: rgba(22, 27, 34, 0.7); padding: 30px; border-radius: 20px; width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: 0.3s;
+        }
+        .pillar-card:hover { transform: translateY(-6px); border-color: #58a6ff; }
+        .pillar-card h3 { margin: 12px 0 8px 0; color: #ffffff; }
+        .pillar-card p { font-size: 14px; color: #8b949e; }
+        footer {
+            text-align: center; padding: 30px; margin-top: 70px;
+            background: rgba(9, 12, 16, 0.9); color: #8b949e; font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <nav>
+        <div class="logo">⚡ Study & Focus Hub</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">1. Dashboard</a>
+            <a href="tips.html">2. Study Tips</a>
+            <a href="focus.html">3. Focus Zone</a>
+            <a href="games.html">4. In-Page Games 🎮</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="badge">🚀 ALL-IN-ONE STUDENT WORKSPACE</div>
+        <h1>Smart Padhai Aur<br>Deep Focus Ka Mantra</h1>
+        <p>Apne study sessions ko timer ke sath track karein, roz ke targets set karein aur best study techniques seekhein.</p>
+        <a class="main-btn" href="tips.html">8 Power Study Tips Kholen &rarr;</a>
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <h2>⏱️ Live Focus Timer (25 Min)</h2>
+            <p style="font-size: 13.5px; color: #8b949e;">25 minute poora dhyan laga kar padhein, bina phone chhuye!</p>
+            <div class="timer-display" id="timer">25:00</div>
+            <div class="timer-btns">
+                <button class="t-btn start-btn" onclick="startTimer()">▶ Start</button>
+                <button class="t-btn pause-btn" onclick="pauseTimer()">⏸ Pause</button>
+                <button class="t-btn reset-btn" onclick="resetTimer()">🔄 Reset</button>
+            </div>
+        </div>
+
+        <div class="tool-card">
+            <h2>🎯 Aaj Ka Study Target</h2>
+            <p style="font-size: 13.5px; color: #8b949e;">Apne aaj ke chapters ya topics yahan likh kar track karein:</p>
+            <div class="todo-input-box">
+                <input type="text" id="taskInput" placeholder="Jaise: Science Chapter 2 padhna hai...">
+                <button class="add-btn" onclick="addTask()">+ Add</button>
+            </div>
+            <ul class="todo-list" id="todoList">
+                <li><span onclick="this.parentElement.classList.toggle('done')">📚 Maths ke 10 questions solve karna</span><button class="del-btn" onclick="this.parentElement.remove()">×</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="padding: 0 20px;">
+        <div class="quote-booster">
+            <span style="font-size: 12px; color: #d2a8ff; font-weight: 700; letter-spacing: 1px;">⚡ INSTANT MOTIVATION BOOSTER</span>
+            <h3 id="randomQuote">"Kamyabi unhe milti hai jo halaat ke aage jhukte nahi, balki mehnat se apni kismat likhte hain!"</h3>
+            <button class="boost-btn" onclick="newQuote()">✨ Naya Motivation Vichar Dekhein</button>
+        </div>
+    </div>
+
+    <div class="pillars">
+        <h2>Behtar Padhai Ke 3 Super Pillars</h2>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div style="font-size: 36px;">📵</div>
+                <h3>Zero Distraction</h3>
+                <p>Padhai ke waqt phone ko silent karke door rakhein taaki notifications aapka focus na todein.</p>
+            </div>
+            <div class="pillar-card">
+                <div style="font-size: 36px;">📝</div>
+                <h3>Active Recall</h3>
+                <p>Jo padha hai use kitab band karke apne shabdon mein likhne aur dohrane ki aadat dalein.</p>
+            </div>
+            <div class="pillar-card">
+                <div style="font-size: 36px;">💧</div>
+                <h3>Fresh Mind & Sleep</h3>
+                <p>7-8 ghante ki poori neend aur paani peene se dimag ki yaad rakhne ki shakti tez hoti hai.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Study & Focus Hub | Interactive Student Productivity Dashboard ✨
+    </footer>
+
+    <script>
+        let timeLeft = 25 * 60;
+        let timerInterval = null;
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) { timeLeft--; updateTimerDisplay(); }
+                else { clearInterval(timerInterval); timerInterval = null; alert("🎉 Badhai ho! 25 minute ka Focus Session poora hua!"); }
+            }, 1000);
+        }
+        function pauseTimer() { clearInterval(timerInterval); timerInterval = null; }
+        function resetTimer() { pauseTimer(); timeLeft = 25 * 60; updateTimerDisplay(); }
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const text = input.value.trim();
+            if (text === "") return;
+            const li = document.createElement('li');
+            li.innerHTML = `<span onclick="this.parentElement.classList.toggle('done')">📌 ${text}</span><button class="del-btn" onclick="this.parentElement.remove()">×</button>`;
+            document.getElementById('todoList').appendChild(li);
+            input.value = "";
+        }
+        document.getElementById('taskInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') addTask(); });
+        const quotes = [
+            "\"Sapne wo nahi jo aap sote waqt dekhte hain, sapne wo hain jo aapko sone nahi dete!\"",
+            "\"Aaj ki ki gayi mehnat kal ki safalta ki sabse badi chabi hai. Bas lage raho!\"",
+            "\"Mushkilein sirf unhi ke hisse mein aati hain jo unhe harane ka dum rakhte hain.\"",
+            "\"Roz thoda-thoda padhna ek din bade result mein badal jata hai. Consistency hi power hai!\"",
+            "\"Khud par bharosa rakho—tum jitna sochte ho usse kahin zyada kar sakte ho!\""
+        ];
+        function newQuote() {
+            document.getElementById('randomQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
+        }
+    </script>
+</body>
+</html>

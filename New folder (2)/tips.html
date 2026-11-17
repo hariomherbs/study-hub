@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Study & Focus Tips - Page 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #060913; color: #ffffff; line-height: 1.6;
+            overflow-x: hidden; position: relative;
+        }
+        .glow-1 {
+            position: fixed; top: 5%; right: -100px; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        .glow-2 {
+            position: fixed; bottom: 5%; left: -100px; width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(163, 113, 247, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 8%; background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px;
+        }
+        .logo {
+            font-size: 24px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links a {
+            color: #e6edf3; text-decoration: none; margin-left: 12px;
+            font-weight: 500; font-size: 14px; padding: 8px 14px;
+            border-radius: 20px; transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(88, 166, 255, 0.18); color: #58a6ff;
+        }
+        .container { max-width: 920px; margin: 50px auto; padding: 0 20px; }
+        .header-title { text-align: center; margin-bottom: 30px; }
+        .header-title h1 {
+            font-size: 40px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #d2a8ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+        }
+        .header-title p { color: #8b949e; font-size: 16px; }
+        .controls-box { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+        .search-input {
+            width: 100%; padding: 14px 22px; border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(22, 27, 34, 0.8);
+            color: white; font-family: 'Poppins', sans-serif; font-size: 15px; outline: none; transition: 0.3s;
+        }
+        .search-input:focus { border-color: #58a6ff; box-shadow: 0px 0px 15px rgba(88, 166, 255, 0.25); }
+        .filter-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .f-btn {
+            padding: 8px 20px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(22, 27, 34, 0.6); color: #c9d1d9;
+            font-family: 'Poppins', sans-serif; font-size: 13.5px; font-weight: 500; cursor: pointer; transition: 0.3s;
+        }
+        .f-btn:hover, .f-btn.active { background: #1f6feb; border-color: #58a6ff; color: white; }
+        .progress-box {
+            background: rgba(22, 27, 34, 0.75); backdrop-filter: blur(10px);
+            padding: 18px 25px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 15px;
+        }
+        .progress-text { font-size: 15px; font-weight: 600; color: #58a6ff; }
+        .progress-bar-bg { flex: 1; min-width: 200px; height: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #238636, #3fb950); transition: width 0.4s ease; border-radius: 10px; }
+        .tip-card {
+            display: flex; align-items: flex-start; gap: 20px;
+            background: rgba(22, 27, 34, 0.75); backdrop-filter: blur(12px);
+            padding: 26px 30px; margin-bottom: 20px; border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: 0.35s ease;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .tip-card:hover { transform: translateY(-4px); border-color: rgba(88, 166, 255, 0.5); }
+        .tip-card.completed { background: rgba(35, 134, 54, 0.12); border-color: rgba(46, 160, 67, 0.45); }
+        .tip-card.completed .tip-content h3, .tip-card.completed .tip-content p { text-decoration: line-through; opacity: 0.65; }
+        .tag-badge {
+            display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px;
+            background: rgba(88, 166, 255, 0.15); color: #79c0ff; margin-bottom: 6px; font-weight: 600; text-transform: uppercase;
+        }
+        .checkbox-container { display: flex; align-items: center; cursor: pointer; margin-top: 4px; }
+        .checkbox-container input { position: absolute; opacity: 0; }
+        .checkmark {
+            min-width: 30px; height: 30px; background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.25); border-radius: 9px;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+        }
+        .checkbox-container input:checked ~ .checkmark { background: #238636; border-color: #3fb950; }
+        .checkmark::after {
+            content: ""; display: none; width: 6px; height: 12px;
+            border: solid white; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+        }
+        .checkbox-container input:checked ~ .checkmark::after { display: block; }
+        .tip-content h3 { font-size: 19px; margin-bottom: 6px; color: #ffffff; }
+        .tip-content p { color: #b1bac4; font-size: 14.5px; }
+        .notes-pad {
+            margin-top: 50px; background: rgba(22, 27, 34, 0.8);
+            border: 1px solid rgba(188, 140, 255, 0.35); border-radius: 22px; padding: 30px;
+        }
+        .notes-pad h2 { font-size: 22px; color: #d2a8ff; margin-bottom: 8px; }
+        .notes-pad textarea {
+            width: 100%; height: 130px; margin-top: 12px; padding: 15px; border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(6, 9, 19, 0.85);
+            color: #e6edf3; font-family: 'Poppins', sans-serif; font-size: 14.5px; resize: vertical; outline: none;
+        }
+        .save-note-btn {
+            margin-top: 12px; padding: 10px 24px; background: #8957e5; color: white; border: none;
+            border-radius: 25px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.3s;
+        }
+        .save-note-btn:hover { background: #a371f7; }
+
+        .page-switch-panel {
+            margin-top: 50px; padding: 30px;
+            background: rgba(22, 27, 34, 0.85);
+            border: 1px solid rgba(88, 166, 255, 0.3); border-radius: 24px; text-align: center;
+        }
+        .page-switch-panel h3 { font-size: 20px; margin-bottom: 18px; color: #e6edf3; }
+        .nav-buttons-group { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .btn-back {
+            display: inline-block; padding: 16px 34px; background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25); color: white; text-decoration: none; font-weight: 600;
+            border-radius: 50px; transition: 0.3s; font-size: 15px;
+        }
+        .btn-back:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+        .btn-next {
+            display: inline-block; padding: 16px 38px;
+            background: linear-gradient(135deg, #238636, #1f6feb, #8957e5); color: white; text-decoration: none; font-weight: 700;
+            border-radius: 50px; box-shadow: 0px 10px 30px rgba(88, 166, 255, 0.5); transition: 0.3s; font-size: 15.5px;
+        }
+        .btn-next:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0px 15px 38px rgba(137, 87, 229, 0.7); }
+
+        footer {
+            text-align: center; padding: 30px; margin-top: 70px;
+            background: rgba(9, 12, 16, 0.9); color: #8b949e; font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <nav>
+        <div class="logo">⚡ Study & Focus Hub</div>
+        <div class="nav-links">
+            <a href="index.html">1. Dashboard</a>
+            <a href="tips.html" class="active">2. Study Tips</a>
+            <a href="focus.html">3. Focus Zone</a>
+            <a href="games.html">4. In-Page Games 🎮</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header-title">
+            <h1>📚 8 Power Study & Focus Tips</h1>
+            <p>Search karein, filter lagayein, aur tick karke apna progress auto-save karein!</p>
+        </div>
+
+        <div class="controls-box">
+            <input type="text" id="searchInput" class="search-input" onkeyup="filterTips()" placeholder="🔍 Koi bhi tip search karein (jaise: Notes, Sleep, Target, Revision)...">
+            <div class="filter-btns">
+                <button class="f-btn active" onclick="setCategory('all', this)">All (8)</button>
+                <button class="f-btn" onclick="setCategory('focus', this)">🎯 Deep Focus</button>
+                <button class="f-btn" onclick="setCategory('memory', this)">🧠 Sharp Memory</button>
+                <button class="f-btn" onclick="setCategory('revision', this)">🔁 Fast Revision</button>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-text" id="progressText">Completed: 0 / 8 Tips (0%)</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div id="tipsContainer">
+            <div class="tip-card" id="card-1" data-category="focus">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Deep Focus</span><h3>01. Study Table Ko Saaf Rakhein</h3><p>Padhai shuru karne se pehle apni desk par sirf wahi kitab aur copy rakhein jo abhi padhni hai. Bikhra hua saman dhyan bhatkata hai.</p></div>
+            </div>
+            <div class="tip-card" id="card-2" data-category="focus">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Deep Focus</span><h3>02. Roz Ka Chhota Target Banayein</h3><p>"Mujhe poori kitab padhni hai" ki jagah "Mujhe aaj sirf 2 chapters khatam karne hain" ka target rakhein. Isse stress kam hota hai.</p></div>
+            </div>
+            <div class="tip-card" id="card-3" data-category="memory">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Sharp Memory</span><h3>03. Feynman Technique (Doosron Ko Samjhayein)</h3><p>Jo topic aapne padha hai, use aise samjhayein jaise aap kisi chhote bachhe ko padha rahe hon. Jahan aap atkenge, wahi topic dobara padhein.</p></div>
+            </div>
+            <div class="tip-card" id="card-4" data-category="focus">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Deep Focus</span><h3>04. Mushkil Subject Pehle Padhein</h3><p>Jab dimag sabse zyada fresh ho (jaise subah ke waqt), tab sabse mushkil subject padhein. Aasan kaam shaam ke liye chhod dein.</p></div>
+            </div>
+            <div class="tip-card" id="card-5" data-category="focus">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Deep Focus</span><h3>05. Multitasking Bilkul Na Karein</h3><p>Ek waqt par ek hi kaam karein. Gaane sunte hue ya phone check karte hue padhne se yaad rakhne ki shamta aadhi reh jati hai.</p></div>
+            </div>
+            <div class="tip-card" id="card-6" data-category="revision">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Fast Revision</span><h3>06. Short Notes Banayein</h3><p>Lambe paragraphs ratne ke bajaye bullet points aur diagrams bana kar notes likhein, taaki exam ke waqt revision tez ho sake.</p></div>
+            </div>
+            <div class="tip-card" id="card-7" data-category="revision">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Fast Revision</span><h3>07. Spaced Repetition (Samay-Samay Par Revision)</h3><p>Aaj jo padha hai, use 24 ghante baad, phir 7 din baad aur phir 1 mahine baad zaroor revise karein. Isse padha hua kabhi nahi bhoolta.</p></div>
+            </div>
+            <div class="tip-card" id="card-8" data-category="memory">
+                <label class="checkbox-container"><input type="checkbox" onchange="updateProgress()"><div class="checkmark"></div></label>
+                <div class="tip-content"><span class="tag-badge">Sharp Memory</span><h3>08. Raat Ko Sone Se Pehle Revision</h3><p>Sone se 15 minute pehle din bhar padhe gaye main points ko ek baar dimag mein dohra lein—neend ke dauran dimag unhe pakka kar leta hai.</p></div>
+            </div>
+        </div>
+
+        <div class="notes-pad">
+            <h2>✍️ Mere Personal Study Notes</h2>
+            <p style="font-size: 13.5px; color: #8b949e;">Apne important formulas, dates ya study ideas yahan likh kar save karein:</p>
+            <textarea id="personalNotes" placeholder="Yahan apne notes likhein..."></textarea>
+            <button class="save-note-btn" onclick="saveNotes()">💾 Save Notes</button>
+            <span id="saveMsg" style="margin-left: 12px; font-size: 13px; color: #3fb950;"></span>
+        </div>
+
+        <div class="page-switch-panel">
+            <h3>Ab Aap Kahan Jaana Chahte Hain?</h3>
+            <div class="nav-buttons-group">
+                <a class="btn-back" href="index.html">&larr; Wapas Page 1 (Home Dashboard)</a>
+                <a class="btn-next" href="focus.html">Agla Page 3: Ultra Focus Zone 🚀 &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Study & Focus Hub | Interactive Smart Study Library ✨
+    </footer>
+
+    <script>
+        let currentCategory = 'all';
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterTips();
+        }
+        function filterTips() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.tip-card').forEach(card => {
+                const text = card.innerText.toLowerCase();
+                const cat = card.getAttribute('data-category');
+                card.style.display = (text.includes(query) && (currentCategory === 'all' || cat === currentCategory)) ? 'flex' : 'none';
+            });
+        }
+        function updateProgress() {
+            const cards = document.querySelectorAll('.tip-card');
+            let checkedCount = 0;
+            const savedState = [];
+            cards.forEach((card, index) => {
+                const checkbox = card.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) { card.classList.add('completed'); checkedCount++; savedState.push(index); }
+                else { card.classList.remove('completed'); }
+            });
+            localStorage.setItem('studyTipsCompleted', JSON.stringify(savedState));
+            const percent = Math.round((checkedCount / cards.length) * 100);
+            document.getElementById('progressText').innerText = `Completed: ${checkedCount} / ${cards.length} Tips (${percent}%)`;
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+        function saveNotes() {
+            localStorage.setItem('myStudyNotes', document.getElementById('personalNotes').value);
+            const msg = document.getElementById('saveMsg');
+            msg.innerText = "✔ Notes save ho gaye!";
+            setTimeout(() => { msg.innerText = ""; }, 2500);
+        }
+        window.onload = function() {
+            const savedTips = JSON.parse(localStorage.getItem('studyTipsCompleted') || "[]");
+            const cards = document.querySelectorAll('.tip-card');
+            savedTips.forEach(idx => { if (cards[idx]) cards[idx].querySelector('input[type="checkbox"]').checked = true; });
+            updateProgress();
+            const savedNotes = localStorage.getItem('myStudyNotes');
+            if (savedNotes) document.getElementById('personalNotes').value = savedNotes;
+        };
+    </script>
+</body>
+</html>

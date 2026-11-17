@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 5 Real Memory & Brain Games - Page 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #050811; color: #ffffff; line-height: 1.6;
+            overflow-x: hidden; position: relative;
+        }
+        .glow-1 {
+            position: fixed; top: -100px; left: 10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(163, 113, 247, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        .glow-2 {
+            position: fixed; bottom: -100px; right: 10%; width: 520px; height: 520px;
+            background: radial-gradient(circle, rgba(88, 166, 255, 0.22) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 8%; background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px;
+        }
+        .logo {
+            font-size: 24px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #bc8cff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links a {
+            color: #e6edf3; text-decoration: none; margin-left: 15px;
+            font-weight: 500; font-size: 14.5px; padding: 8px 16px;
+            border-radius: 20px; transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(88, 166, 255, 0.2); color: #58a6ff;
+        }
+        .container { max-width: 1100px; margin: 45px auto; padding: 0 20px; }
+        
+        .page-header { text-align: center; margin-bottom: 25px; }
+        .page-header h1 {
+            font-size: 38px; font-weight: 800;
+            background: linear-gradient(90deg, #58a6ff, #d2a8ff, #3fb950);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+        }
+        .page-header p { color: #8b949e; font-size: 15px; }
+
+        .report-banner {
+            background: rgba(22, 27, 34, 0.85);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 18px; padding: 18px 25px; margin-bottom: 30px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+        .report-banner h3 { font-size: 17px; color: #79c0ff; }
+        .report-banner p { font-size: 13.5px; color: #8b949e; }
+        .badge-pill {
+            background: rgba(46, 160, 67, 0.15); border: 1px solid #3fb950;
+            color: #3fb950; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 13px;
+        }
+
+        /* Game Selector Tabs (5 Real Memory Games) */
+        .game-tabs {
+            display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;
+        }
+        .tab-btn {
+            padding: 10px 20px; border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(20, 25, 35, 0.8); color: #c9d1d9; font-family: 'Poppins', sans-serif;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .tab-btn:hover, .tab-btn.active {
+            background: #1f6feb; border-color: #58a6ff; color: white;
+            box-shadow: 0px 5px 18px rgba(88, 166, 255, 0.3);
+        }
+
+        /* Game Player Box */
+        .game-player-box {
+            background: rgba(13, 17, 23, 0.9);
+            border: 1px solid rgba(88, 166, 255, 0.35);
+            border-radius: 24px; padding: 30px; text-align: center;
+            box-shadow: 0px 15px 45px rgba(0, 0, 0, 0.6);
+            min-height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .game-player-box h2 { font-size: 22px; color: #79c0ff; margin-bottom: 15px; }
+        .game-view {
+            width: 100%; display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .game-view.active { display: flex; }
+
+        /* Game 1: Memory Matrix Styles */
+        .matrix-grid { display: grid; grid-template-columns: repeat(3, 85px); gap: 10px; margin-bottom: 18px; }
+        .matrix-tile {
+            width: 85px; height: 85px; background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.15); border-radius: 14px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .matrix-tile.active-tile { background: #3fb950; border-color: #56d364; box-shadow: 0px 0px 20px rgba(63, 185, 80, 0.6); }
+        .matrix-tile.wrong-tile { background: #da3633; border-color: #ff7b72; }
+
+        /* Game 2: Speed Math Styles */
+        .math-box { text-align: center; max-width: 400px; width: 100%; }
+        .math-q { font-size: 42px; font-weight: 800; color: #79c0ff; margin: 15px 0; }
+        .math-input {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #161b22; color: white; font-size: 18px; text-align: center; outline: none; margin-bottom: 15px;
+        }
+
+        /* Game 3: Number Sequence Styles */
+        .num-grid { display: grid; grid-template-columns: repeat(3, 85px); gap: 10px; margin-bottom: 18px; }
+        .num-tile {
+            width: 85px; height: 85px; background: rgba(22, 27, 34, 0.9);
+            border: 2px solid rgba(88, 166, 255, 0.3); border-radius: 14px;
+            font-size: 26px; font-weight: 700; color: #58a6ff;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .num-tile:hover { background: rgba(88, 166, 255, 0.2); }
+        .num-tile.hidden-num { color: transparent; background: rgba(255, 255, 255, 0.05); }
+
+        /* Game 4: Tic Tac Toe Styles */
+        .ttt-board { display: grid; grid-template-columns: repeat(3, 95px); gap: 10px; margin-bottom: 15px; }
+        .ttt-cell {
+            width: 95px; height: 95px; background: rgba(22, 27, 34, 0.9);
+            border: 2px solid rgba(88, 166, 255, 0.3); border-radius: 14px;
+            font-size: 40px; font-weight: 800; color: #58a6ff;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
+        }
+        .ttt-cell:hover { background: rgba(88, 166, 255, 0.15); }
+
+        /* Game 5: Color Stroop Focus Styles */
+        .stroop-word { font-size: 46px; font-weight: 800; margin: 20px 0; letter-spacing: 2px; }
+        .color-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+        .c-btn { padding: 10px 22px; border: none; border-radius: 12px; font-weight: 700; color: white; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 14px; }
+
+        .game-btn {
+            padding: 10px 24px; background: #238636; color: white; border: none;
+            border-radius: 20px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: 0.3s;
+        }
+        .game-btn:hover { background: #2ea043; transform: scale(1.03); }
+
+        /* Divider & About Developer */
+        .divider-line { width: 100%; height: 1px; background: rgba(255, 255, 255, 0.15); margin: 55px 0 35px 0; }
+        .developer-section {
+            background: rgba(22, 27, 34, 0.7); border: 1px solid rgba(137, 87, 229, 0.4);
+            border-radius: 20px; padding: 30px; text-align: center; max-width: 700px; margin: 0 auto;
+        }
+        .developer-section h3 {
+            font-size: 22px; background: linear-gradient(90deg, #d2a8ff, #58a6ff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px;
+        }
+        .dev-info {
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; font-size: 14.5px; color: #c9d1d9;
+        }
+        .dev-info div { background: rgba(6, 9, 19, 0.6); padding: 8px 16px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); }
+
+        .bottom-nav-panel { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
+        .nav-pill {
+            padding: 14px 32px; border-radius: 50px; text-decoration: none;
+            font-weight: 600; transition: 0.3s; color: white; font-size: 14.5px;
+        }
+        .pill-prev { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.25); }
+        .pill-prev:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-3px); }
+        .pill-home { background: linear-gradient(135deg, #238636, #1f6feb); box-shadow: 0px 8px 25px rgba(35, 134, 54, 0.45); }
+        .pill-home:hover { transform: translateY(-3px); }
+
+        footer {
+            text-align: center; padding: 25px; margin-top: 50px;
+            background: rgba(9, 12, 16, 0.95); color: #8b949e; font-size: 13.5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <nav>
+        <div class="logo">⚡ Study & Focus Hub</div>
+        <div class="nav-links">
+            <a href="index.html">1. Dashboard</a>
+            <a href="tips.html">2. Study Tips</a>
+            <a href="focus.html">3. Focus Zone</a>
+            <a href="games.html" class="active">4. Real Brain Games 🎮</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>🧠 Top 5 Real Memory & Brain Sharp Games</h1>
+            <p>100% Working aur Error-Free Games jo aapki memory aur calculation tezi se strong karenge!</p>
+        </div>
+
+        <div class="report-banner">
+            <div>
+                <h3>📊 Active Brain Games Arena</h3>
+                <p>Status: All 5 games are running locally inside your page without any connection error.</p>
+            </div>
+            <div class="badge-pill">✔ 100% Working</div>
+        </div>
+
+        <!-- Game Selector Tabs (5 Real Games) -->
+        <div class="game-tabs">
+            <button class="tab-btn active" onclick="switchGame('game1', this)">1. Memory Matrix</button>
+            <button class="tab-btn" onclick="switchGame('game2', this)">2. Speed Math</button>
+            <button class="tab-btn" onclick="switchGame('game3', this)">3. Number Sequence</button>
+            <button class="tab-btn" onclick="switchGame('game4', this)">4. Tic Tac Toe</button>
+            <button class="tab-btn" onclick="switchGame('game5', this)">5. Color Stroop Test</button>
+        </div>
+
+        <!-- Game Player Box -->
+        <div class="game-player-box">
+            <h2 id="gameTitle">Playing: Memory Matrix (Grid Memory)</h2>
+
+            <!-- Game 1: Memory Matrix -->
+            <div id="game1" class="game-view active">
+                <p style="color: #8b949e; font-size: 14px; margin-bottom: 15px;" id="matrixStatus">Green boxes ko dhyan se yaad karein!</p>
+                <div class="matrix-grid" id="matrixGrid">
+                    <div class="matrix-tile" onclick="clickMatrix(0)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(1)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(2)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(3)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(4)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(5)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(6)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(7)"></div>
+                    <div class="matrix-tile" onclick="clickMatrix(8)"></div>
+                </div>
+                <button class="game-btn" onclick="startMatrixGame()">▶ Start Memory Test</button>
+            </div>
+
+            <!-- Game 2: Speed Math -->
+            <div id="game2" class="game-view">
+                <div class="math-box">
+                    <p style="color: #8b949e; font-size: 14px;">Fast calculation solve karke apna score banayein:</p>
+                    <div class="math-q" id="mathQ">14 + 19 = ?</div>
+                    <input type="number" id="mathInp" class="math-input" placeholder="Jawab likhein..." onkeypress="if(event.key==='Enter')verifyMath()">
+                    <button class="game-btn" onclick="verifyMath()">Submit Answer</button>
+                    <div id="mathRes" style="margin-top: 12px; font-weight: 600; color: #3fb950;">Score: 0</div>
+                </div>
+            </div>
+
+            <!-- Game 3: Number Sequence Memory -->
+            <div id="game3" class="game-view">
+                <p style="color: #8b949e; font-size: 14px; margin-bottom: 15px;" id="numStatus">Numbers ko 1 se 9 tak sahi order mein click karein!</p>
+                <div class="num-grid" id="numGrid"></div>
+                <button class="game-btn" style="margin-top: 10px;" onclick="startNumGame()">▶ Start Number Game</button>
+            </div>
+
+            <!-- Game 4: Tic Tac Toe -->
+            <div id="game4" class="game-view">
+                <div style="color: #3fb950; font-weight: 600; margin-bottom: 12px;" id="tttStatus">Player X ki Baari hai</div>
+                <div class="ttt-board">
+                    <div class="ttt-cell" onclick="makeMove(0)"></div>
+                    <div class="ttt-cell" onclick="makeMove(1)"></div>
+                    <div class="ttt-cell" onclick="makeMove(2)"></div>
+                    <div class="ttt-cell" onclick="makeMove(3)"></div>
+                    <div class="ttt-cell" onclick="makeMove(4)"></div>
+                    <div class="ttt-cell" onclick="makeMove(5)"></div>
+                    <div class="ttt-cell" onclick="makeMove(6)"></div>
+                    <div class="ttt-cell" onclick="makeMove(7)"></div>
+                    <div class="ttt-cell" onclick="makeMove(8)"></div>
+                </div>
+                <button class="game-btn" onclick="resetTTT()">🔄 Naya Game</button>
+            </div>
+
+            <!-- Game 5: Color Stroop Focus Test -->
+            <div id="game5" class="game-view">
+                <p style="color: #8b949e; font-size: 14px;">Word ke <strong>TEXT COLOR</strong> par click karein, na ki jo shabd likha hai!</p>
+                <div class="stroop-word" id="stroopWord">RED</div>
+                <div class="color-btns">
+                    <button class="c-btn" style="background:#da3633;" onclick="checkStroop('red')">RED</button>
+                    <button class="c-btn" style="background:#1f6feb;" onclick="checkStroop('blue')">BLUE</button>
+                    <button class="c-btn" style="background:#238636;" onclick="checkStroop('green')">GREEN</button>
+                    <button class="c-btn" style="background:#d29922;" onclick="checkStroop('orange')">ORANGE</button>
+                </div>
+                <div id="stroopScore" style="margin-top: 15px; font-weight: 600; color: #79c0ff;">Streak: 0</div>
+                <button class="game-btn" style="margin-top: 15px;" onclick="startStroop()">▶ Start Stroop Test</button>
+            </div>
+        </div>
+
+        <!-- Line Divider -->
+        <div class="divider-line"></div>
+
+        <!-- About Developer Section -->
+        <div class="developer-section">
+            <h3>👨‍💻 About Developer</h3>
+            <p style="font-size: 14px; color: #8b949e; margin-top: 5px;">Yeh smart student productivity web-app aapke study focus aur brain power ko badhane ke liye banai gayi hai.</p>
+            <div class="dev-info">
+                <div>👤 Name: <strong>Saksham</strong></div>
+                <div>📍 Location: <strong>Manai, Jodhpur, Rajasthan</strong></div>
+                <div>🎓 Age: <strong>13 Years</strong></div>
+            </div>
+        </div>
+
+        <div class="bottom-nav-panel">
+            <a class="nav-pill pill-prev" href="focus.html">&larr; Wapas Page 3 (Focus Zone)</a>
+            <a class="nav-pill pill-home" href="index.html">🏠 Page 1 (Home Dashboard)</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Study & Focus Hub | Designed by Saksham (Manai, Jodhpur, Rajasthan) 🚀
+    </footer>
+
+    <script>
+        function switchGame(gameId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.game-view').forEach(v => v.classList.remove('active'));
+
+            btn.classList.add('active');
+            document.getElementById(gameId).classList.add('active');
+
+            const titles = {
+                'game1': "Playing: Memory Matrix (Grid Memory)",
+                'game2': "Playing: Speed Math Challenge",
+                'game3': "Playing: Number Sequence Memory",
+                'game4': "Playing: Tic Tac Toe Logic Duel",
+                'game5': "Playing: Color Stroop Focus Test"
+            };
+            document.getElementById('gameTitle').innerText = titles[gameId];
+        }
+
+        // --- Game 1: Memory Matrix Logic ---
+        let targetTiles = [], playerTiles = [], matrixPlaying = false;
+        function startMatrixGame() {
+            targetTiles = []; playerTiles = []; matrixPlaying = false;
+            document.getElementById('matrixStatus').innerText = "Green boxes yaad karein...";
+            document.querySelectorAll('.matrix-tile').forEach(t => t.className = "matrix-tile");
+
+            while(targetTiles.length < 3) {
+                let r = Math.floor(Math.random() * 9);
+                if(!targetTiles.includes(r)) targetTiles.push(r);
+            }
+
+            targetTiles.forEach(i => {
+                document.querySelectorAll('.matrix-tile')[i].classList.add('active-tile');
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.matrix-tile').forEach(t => t.classList.remove('active-tile'));
+                document.getElementById('matrixStatus').innerText = "Ab unhi 3 boxes par click karein!";
+                matrixPlaying = true;
+            }, 1500);
+        }
+
+        function clickMatrix(idx) {
+            if(!matrixPlaying) return;
+            const tile = document.querySelectorAll('.matrix-tile')[idx];
+            if(targetTiles.includes(idx) && !playerTiles.includes(idx)) {
+                tile.classList.add('active-tile');
+                playerTiles.push(idx);
+                if(playerTiles.length === targetTiles.length) {
+                    document.getElementById('matrixStatus').innerText = "🎉 Shandaar! Aapne yaad rakh liya!";
+                    matrixPlaying = false;
+                }
+            } else if(!targetTiles.includes(idx)) {
+                tile.classList.add('wrong-tile');
+                document.getElementById('matrixStatus').innerText = "❌ Galat box! Phir se koshish karein.";
+                matrixPlaying = false;
+            }
+        }
+
+        // --- Game 2: Speed Math Logic ---
+        let mathAns = 0, mathScore = 0;
+        function nextMath() {
+            let a = Math.floor(Math.random() * 30) + 5;
+            let b = Math.floor(Math.random() * 20) + 1;
+            mathAns = a + b;
+            document.getElementById('mathQ').innerText = `${a} + ${b} = ?`;
+            document.getElementById('mathInp').value = "";
+        }
+        function verifyMath() {
+            let val = parseInt(document.getElementById('mathInp').value);
+            if(val === mathAns) {
+                mathScore += 10;
+                document.getElementById('mathRes').innerText = `🔥 Sahi! Score: ${mathScore}`;
+                nextMath();
+            } else {
+                document.getElementById('mathRes').innerText = `❌ Galat! Sahi jawab ${mathAns} tha. Score: ${mathScore}`;
+                nextMath();
+            }
+        }
+        nextMath();
+
+        // --- Game 3: Number Sequence Logic ---
+        let currentNum = 1;
+        function startNumGame() {
+            currentNum = 1;
+            document.getElementById('numStatus').innerText = "1 se 9 tak kramanusar click karein:";
+            let grid = document.getElementById('numGrid');
+            grid.innerHTML = "";
+            let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+            nums.forEach(n => {
+                let div = document.createElement('div');
+                div.className = "num-tile";
+                div.innerText = n;
+                div.onclick = () => clickNum(n, div);
+                grid.appendChild(div);
+            });
+            setTimeout(() => {
+                document.querySelectorAll('.num-tile').forEach(t => t.classList.add('hidden-num'));
+            }, 2000);
+        }
+        function clickNum(n, el) {
+            if(n === currentNum) {
+                el.classList.remove('hidden-num');
+                el.style.background = "#238636";
+                currentNum++;
+                if(currentNum > 9) {
+                    document.getElementById('numStatus').innerText = "🏆 Zabardast! Aapki memory ekdum sharp hai!";
+                }
+            } else {
+                document.getElementById('numStatus').innerText = "❌ Galat sequence! Phir se shuru karein.";
+                document.querySelectorAll('.num-tile').forEach(t => t.classList.remove('hidden-num'));
+            }
+        }
+        startNumGame();
+
+        // --- Game 4: Tic Tac Toe Logic ---
+        let board = ["","","","","","","","",""];
+        let currentPlayer = "X", tttActive = true;
+        function makeMove(i) {
+            if(board[i] !== "" || !tttActive) return;
+            board[i] = currentPlayer;
+            document.querySelectorAll('.ttt-cell')[i].innerText = currentPlayer;
+            let win = checkTTTWinner();
+            if(win) {
+                document.getElementById('tttStatus').innerText = win === "Tie" ? "🤝 Muqabla Tie!" : `🎉 Khiladi ${win} Jeet Gaya!`;
+                tttActive = false;
+                return;
+            }
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById('tttStatus').innerText = `Player ${currentPlayer} ki Baari hai`;
+        }
+        function checkTTTWinner() {
+            const conds = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            for(let c of conds) {
+                if(board[c[0]] && board[c[0]] === board[c[1]] && board[c[0]] === board[c[2]]) return board[c[0]];
+            }
+            if(!board.includes("")) return "Tie";
+            return null;
+        }
+        function resetTTT() {
+            board = ["","","","","","","","",""];
+            currentPlayer = "X"; tttActive = true;
+            document.getElementById('tttStatus').innerText = "Player X ki Baari hai";
+            document.querySelectorAll('.ttt-cell').forEach(c => c.innerText = "");
+        }
+
+        // --- Game 5: Color Stroop Focus Logic ---
+        let stroopStreak = 0, correctColor = 'red';
+        const colors = ['red', 'blue', 'green', 'orange'];
+        const colorHex = { 'red': '#da3633', 'blue': '#1f6feb', 'green': '#238636', 'orange': '#d29922' };
+        function startStroop() {
+            let wordText = colors[Math.floor(Math.random() * colors.length)];
+            correctColor = colors[Math.floor(Math.random() * colors.length)];
+            let wordEl = document.getElementById('stroopWord');
+            wordEl.innerText = wordText.toUpperCase();
+            wordEl.style.color = colorHex[correctColor];
+        }
+        function checkStroop(c) {
+            if(c === correctColor) {
+                stroopStreak++;
+                document.getElementById('stroopScore').innerText = `Sahi! Streak: ${stroopStreak}`;
+                startStroop();
+            } else {
+                stroopStreak = 0;
+                document.getElementById('stroopScore').innerText = `Galat! Streak Reset. Streak: 0`;
+                startStroop();
+            }
+        }
+        startStroop();
+    </script>
+</body>
+</html>
